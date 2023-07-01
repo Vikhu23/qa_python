@@ -54,4 +54,17 @@ class TestBooksCollector:
         collector = BooksCollector()
         collector.add_book_in_favorites(book_name)
         assert len(collector.get_list_of_favorites_books()) != 1
-        
+    
+    @pytest.mark.parametrize(
+        'books , rating',
+        [
+            ['Горе от ума', 9],
+            ['Фауст', 8],
+            ['Мертвые души', 5]
+        ]
+    )
+    def test_get_book_with_specific_rating_book_gets(self, books, rating):
+        collector = BooksCollector()
+        collector.add_new_book(books)
+        collector.set_book_rating(books, rating)
+        assert collector.get_books_with_specific_rating(rating) == [books]
