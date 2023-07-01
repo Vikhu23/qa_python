@@ -42,3 +42,11 @@ class TestBooksCollector:
         collector.add_new_book(book_name)
         collector.add_book_in_favorites(book_name)
         assert len(collector.get_list_of_favorites_books()) == 1
+    
+    def test_delete_book_in_list_of_favorites_books_book_deleted(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.add_book_in_favorites(book_name)
+        collector.delete_book_from_favorites(book_name)
+        assert len(collector.get_list_of_favorites_books()) == 0
+        
