@@ -26,13 +26,13 @@ class TestBooksCollector:
         collector.set_book_rating(book_name, -1)
         assert collector.get_books_rating() != 1
         
-    def test_set_rating_book_more_than_10(self, book_name):
+    def test_set_rating_book_more_than_10_not_setting(self, book_name):
         collector = BooksCollector()
         collector.add_new_book(book_name)
         collector.set_book_rating(book_name, 11)
         assert collector.get_books_rating() != 11
     
-    def test_added_book_has_no_rating(self, book_name):
+    def test_added_book_has_no_rating_setting_rating_by_default(self, book_name):
         collector = BooksCollector()
         collector.add_new_book(book_name)
         assert collector.get_books_rating() != 0
