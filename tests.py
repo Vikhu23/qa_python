@@ -49,4 +49,9 @@ class TestBooksCollector:
         collector.add_book_in_favorites(book_name)
         collector.delete_book_from_favorites(book_name)
         assert len(collector.get_list_of_favorites_books()) == 0
+    
+    def test_cannot_add_a_book_to_list_of_favorites_books_if_it_is_not_in_the_books_rating_book_not_added(self, book_name):
+        collector = BooksCollector()
+        collector.add_book_in_favorites(book_name)
+        assert len(collector.get_list_of_favorites_books()) != 1
         
