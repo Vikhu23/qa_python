@@ -16,12 +16,23 @@ class TestBooksCollector:
         assert len(collector.get_books_rating()) != 2
     
     def test_set_rating_book_is_not_on_the_list_not_setting(self, book_rating):
-    collector = BooksCollector()
-    collector.set_book_rating('Горе от ума', book_rating)
-    assert len(collector.get_books_rating()) != 10
+        collector = BooksCollector()
+        collector.set_book_rating('Горе от ума', book_rating)
+        assert len(collector.get_books_rating()) != 10
     
-    
-
-
+    def test_set_rating_book_less_than_1_not_setting(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.set_book_rating(book_name, -1)
+        assert collector.get_books_rating() != 1
         
-
+    def test_set_rating_book_more_than_10(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.set_book_rating(book_name, 11)
+        assert collector.get_books_rating() != 11
+    
+    def test_added_book_has_no_rating(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        assert collector.get_books_rating() != 0
