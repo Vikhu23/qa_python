@@ -18,7 +18,7 @@ class TestBooksCollector:
     def test_set_rating_book_is_not_on_the_list_not_setting(self, book_rating):
         collector = BooksCollector()
         collector.set_book_rating('Горе от ума', book_rating)
-        assert collector.get_book_rating('Горе от ума') == None
+        assert collector.get_book_rating('Горе от ума') is None
     
     
     @pytest.mark.parametrize(
@@ -33,7 +33,7 @@ class TestBooksCollector:
     def test_added_book_has_no_rating_setting_rating_by_default(self, book_name):
         collector = BooksCollector()
         collector.add_new_book(book_name)
-        assert collector.get_book_rating(book_name) != 0
+        assert collector.get_book_rating(book_name) == 1
     
     def test_add_book_in_list_of_favorites_books_book_added(self, book_name):
         collector = BooksCollector()
