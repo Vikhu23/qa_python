@@ -9,4 +9,6 @@ gen
 .build
 .target
 .pyc
+.pytest_cache
+._pycache_
 
