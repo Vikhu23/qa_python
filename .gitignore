@@ -10,6 +10,5 @@ gen
 .target
 .pyc
 .pytest_cache
-
-
+.__pycache__/
 
