@@ -8,5 +8,5 @@ def book_name():
 
 @pytest.fixture()
 def book_rating():
-    rating = 10
+    rating = 7
     return rating
