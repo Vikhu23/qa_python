@@ -1,7 +1,3 @@
-### Example user template template
-### Example user template
-
-# IntelliJ project files
 .idea
 *.iml
 out
@@ -10,5 +6,11 @@ gen
 .target
 .pyc
 .pytest_cache
+<<<<<<< HEAD
 .__pycache__/
+=======
+__pycache__
+
+
+>>>>>>> develop
 
