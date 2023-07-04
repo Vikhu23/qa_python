@@ -9,7 +9,7 @@ gen
 .build
 .target
 .pyc
-.pytest_cache
+.pytest_cache/
 
 
 
