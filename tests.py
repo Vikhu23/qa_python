@@ -1,24 +1,71 @@
 from main import BooksCollector
 
-# класс TestBooksCollector объединяет набор тестов, которыми мы покрываем наше приложение BooksCollector
-# обязательно указывать префикс Test
+import pytest
 class TestBooksCollector:
 
-    # пример теста:
-    # обязательно указывать префикс test_
-    # дальше идет название метода, который тестируем add_new_book_
-    # затем, что тестируем add_two_books - добавление двух книг
     def test_add_new_book_add_two_books(self):
-        # создаем экземпляр (объект) класса BooksCollector
         collector = BooksCollector()
-
-        # добавляем две книги
         collector.add_new_book('Гордость и предубеждение и зомби')
         collector.add_new_book('Что делать, если ваш кот хочет вас убить')
-
-        # проверяем, что добавилось именно две
-        # словарь books_rating, который нам возвращает метод get_books_rating, имеет длину 2
         assert len(collector.get_books_rating()) == 2
 
-    # напиши свои тесты ниже
-    # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
+    def test_add_new_book_identical_books_one_book_added(self,book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.add_new_book(book_name)
+        assert len(collector.get_books_rating()) == 1
+    
+    def test_set_rating_book_is_not_on_the_list_not_setting(self, book_rating):
+        collector = BooksCollector()
+        collector.set_book_rating('Горе от ума', book_rating)
+        assert collector.get_book_rating('Горе от ума') is None
+    
+    
+    @pytest.mark.parametrize(
+        'rating',[-1,11,0]
+    )
+    def test_set_rating_book_less_than_1_or_set_rating_book_more_than_10_not_setting(self, book_name,rating):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.set_book_rating(book_name, rating)
+        assert collector.get_book_rating(book_name) == 1
+    
+    def test_added_book_has_no_rating_setting_rating_by_default(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        assert collector.get_book_rating(book_name) == 1
+    
+    def test_add_book_in_list_of_favorites_books_book_added(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.add_book_in_favorites(book_name)
+        assert book_name in collector.get_list_of_favorites_books()
+        
+    
+    def test_delete_book_in_list_of_favorites_books_book_deleted(self, book_name):
+        collector = BooksCollector()
+        collector.add_new_book(book_name)
+        collector.add_book_in_favorites(book_name)
+        collector.delete_book_from_favorites(book_name)
+        assert book_name not in collector.get_list_of_favorites_books()
+        
+    
+    def test_cannot_add_a_book_to_list_of_favorites_books_if_it_is_not_in_the_books_rating_book_not_added(self, book_name):
+        collector = BooksCollector()
+        collector.add_book_in_favorites(book_name)
+        assert len(collector.get_list_of_favorites_books()) == 0
+    
+    @pytest.mark.parametrize(
+        'books , rating',
+        [
+            ['Горе от ума', 9],
+            ['Фауст', 8],
+            ['Мертвые души', 5]
+        ]
+    )
+    def test_get_book_with_specific_rating_book_gets(self, books, rating):
+        collector = BooksCollector()
+        collector.add_new_book(books)
+        collector.set_book_rating(books, rating)
+        assert books in collector.get_books_with_specific_rating(rating)
+        
